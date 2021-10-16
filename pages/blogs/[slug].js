@@ -4,11 +4,15 @@ import { getBlogBySlug, getAllBlogs } from "lib/api";
 import BlogHeader from "components/BlogHeader";
 import BlockContent from "@sanity/block-content-to-react";
 
+// https://www.sanity.io/docs/presenting-block-text
 const serializers = {
   types: {
-    code: () => {
-      return <h1>Code Blocks</h1>;
-    },
+    code: ({ node: { language, code, filename } }) => (
+      <pre data-language={language}>
+        <code>{code}</code>
+        <p>{filename}</p>
+      </pre>
+    ),
   },
 };
 
@@ -26,7 +30,11 @@ const BlogDetail = ({ blog }) => {
           />
           <hr />
           {/* Blog Content Here */}
-          <BlockContent serializers={serializers} blocks={blog.content} />
+          <BlockContent
+            imageOptions={{ w: 320, h: 240, fit: "max" }}
+            serializers={serializers}
+            blocks={blog.content}
+          />
         </Col>
       </Row>
     </PageLayout>
