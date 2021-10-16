@@ -31,7 +31,7 @@ export default function Home({ blogs }) {
         </Col> */}
         {blogs.map((blog) =>
           filter.view.list ? (
-            <Col md="9">
+            <Col key={`${blog.slug}-list`} md="9">
               <CardListItem />
             </Col>
           ) : (
