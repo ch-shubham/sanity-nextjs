@@ -1,33 +1,20 @@
 import { Row, Col } from "react-bootstrap";
 import PageLayout from "components/PageLayout";
 import { getBlogBySlug, getAllBlogs } from "lib/api";
+import BlogHeader from "components/BlogHeader";
 
 const BlogDetail = ({ blog }) => {
   return (
     <PageLayout className="blog-detail-page">
       <Row>
         <Col md={{ span: 10, offset: 1 }}>
-          <div className="blog-detail-header">
-            <p className="lead mb-0">
-              <img
-                src={blog.author?.avatar}
-                className="rounded-circle mr-3"
-                height="50px"
-                width="50px"
-                alt="avatar"
-              />
-              {blog.author?.name}
-              {", "} {blog.author?.data}
-            </p>
-            <h1 className="font-weight-bold blog-detail-header-title mb-0">
-              {blog.title}
-            </h1>
-            <h2 className="blog-detail-header-subtitle mb-3">
-              {blog.subtitle}
-            </h2>
-            {/* Check if contains cover image */}
-            <img className="img-fluid rounded" src={blog.coverImage} alt="" />
-          </div>
+          <BlogHeader
+            title={blog.title}
+            subtitle={blog.subtitle}
+            author={blog.author}
+            coverImage={blog.coverImage}
+            date={blog.date}
+          />
           <hr />
           {/* Blog Content Here */}
           It is a long established fact that a reader will be distracted by the
