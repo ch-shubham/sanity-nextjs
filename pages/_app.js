@@ -1,3 +1,9 @@
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faBorderAll, faListUl } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faListUl, faBorderAll);
+
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "highlight.js/styles/darcula.css";
 import "styles/index.scss";
