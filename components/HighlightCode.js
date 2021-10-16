@@ -11,7 +11,7 @@ export default function HighlightCode({ children, language }) {
 
   return (
     <pre>
-      <code ref={code} classname={language}>
+      <code ref={code} className={language}>
         {children}
       </code>
     </pre>
