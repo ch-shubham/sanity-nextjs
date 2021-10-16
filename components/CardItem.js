@@ -22,7 +22,10 @@ const CardItem = ({ title, subtitle, image, date, author, slug, link }) => (
         </div>
       </Card.Header>
       <div className="view overlay">
-        <Card.Img src={urlFor(image).height(200).url()} alt="Card image cap" />
+        <Card.Img
+          src={urlFor(image).height(200).crop("center").fit("clip").url()}
+          alt="Card image cap"
+        />
       </div>
       <Card.Body>
         <Card.Title className="card-main-title">{title}</Card.Title>
