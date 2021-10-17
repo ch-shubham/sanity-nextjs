@@ -7,16 +7,18 @@ import CardListItem from "components/CardListItem";
 import { getAllBlogs } from "lib/api";
 import FilteringMenu from "components/FilteringMenu";
 import { useState } from "react";
-import useSWR from "swr";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import { useGetHello } from "actions";
 
 export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
     view: { list: 0 },
   });
 
-  const { data, error } = useSWR("api/hello", fetcher);
+  const { data, error } = useGetHello();
+
+  if (data) {
+    alert(JSON.stringify(data));
+  }
 
   return (
     <PageLayout>
