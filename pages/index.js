@@ -7,14 +7,14 @@ import CardListItem from "components/CardListItem";
 import { getAllBlogs } from "lib/api";
 import FilteringMenu from "components/FilteringMenu";
 import { useState } from "react";
-import { useGetHello } from "actions";
+import { useGetBlogs } from "actions";
 
 export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
     view: { list: 0 },
   });
 
-  const { data, error } = useGetHello();
+  const { data, error } = useGetBlogs();
 
   if (data) {
     alert(JSON.stringify(data));
