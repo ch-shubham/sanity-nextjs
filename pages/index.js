@@ -1,20 +1,21 @@
 import { Col, Row } from "react-bootstrap";
 import PageLayout from "components/PageLayout";
 import AuthorIntro from "components/AuthorIntro.";
-import CardItem from "components/CardItem";
-import CardListItem from "components/CardListItem";
 
-import { getAllBlogs } from "lib/api";
 import FilteringMenu from "components/FilteringMenu";
 import { useState } from "react";
-import { useGetBlogs } from "actions";
+import { useGetBlogsPages } from "actions/pagination";
+import { getAllBlogs } from "lib/api";
 
-export default function Home({ blogs: initialData }) {
+export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
     view: { list: 0 },
   });
 
-  const { data: blogs, error } = useGetBlogs(initialData);
+  const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogsPages({
+    blogs,
+    filter,
+  });
 
   return (
     <PageLayout>
@@ -28,34 +29,7 @@ export default function Home({ blogs: initialData }) {
         onChange={(option, value) => setFilter({ ...filter, [option]: value })}
       />
       <hr />
-      <Row className="mb-5">
-        {blogs.map((blog) =>
-          filter.view.list ? (
-            <Col key={`${blog.slug}-list`} md="9">
-              <CardListItem
-                author={blog.author}
-                title={blog.title}
-                subtitle={blog.subtitle}
-                date={blog.date}
-                slug={blog.slug}
-                link={{ href: "/blogs/[slug]", as: `/blogs/${blog.slug}` }}
-              />
-            </Col>
-          ) : (
-            <Col key={blog.slug} md="4">
-              <CardItem
-                author={blog.author}
-                title={blog.title}
-                subtitle={blog.subtitle}
-                date={blog.date}
-                image={blog.coverImage}
-                slug={blog.slug}
-                link={{ href: "/blogs/[slug]", as: `/blogs/${blog.slug}` }}
-              />
-            </Col>
-          )
-        )}
-      </Row>
+      <Row className="mb-5">{pages}</Row>
     </PageLayout>
   );
 }
