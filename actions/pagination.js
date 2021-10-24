@@ -47,6 +47,6 @@ export const useGetBlogsPages = ({ blogs: initialData, filter }) => {
     (SWR, index) => {
       return 0;
     },
-    []
+    [filter]
   );
 };
