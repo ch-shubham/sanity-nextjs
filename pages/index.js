@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import PageLayout from "components/PageLayout";
 import AuthorIntro from "components/AuthorIntro.";
 
@@ -12,6 +12,9 @@ export default function Home({ blogs }) {
     view: { list: 0 },
   });
 
+  //  loadMore: to load more data
+  //  isLoadingMore: is true whenever we are making request to fetch data
+  //  isReachingEnd: is true when we loaded all of the data, data is empty(empty array)
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogsPages({
     blogs,
     filter,
@@ -30,6 +33,20 @@ export default function Home({ blogs }) {
       />
       <hr />
       <Row className="mb-5">{pages}</Row>
+      <div style={{ textAlign: "center" }}>
+        <Button
+          size="lg"
+          variant="outline-secondary"
+          onClick={loadMore}
+          disabled={isReachingEnd || isLoadingMore}
+        >
+          {isLoadingMore
+            ? "..."
+            : isReachingEnd
+            ? "No More Blogs"
+            : "More Blogs"}
+        </Button>
+      </div>
     </PageLayout>
   );
 }
