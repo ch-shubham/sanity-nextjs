@@ -55,7 +55,7 @@ export default function Home({ blogs }) {
 // function is called during the build (build time)
 // Provides the props to your page and it creates the static pages.
 export async function getStaticProps() {
-  const blogs = await getAllBlogs({ offset: 0 });
+  const blogs = await getAllBlogs({ offset: 0, date: "desc" });
   return {
     // return the prop object which is again a object havng the propNames and the values to it
     props: {
