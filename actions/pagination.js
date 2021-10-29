@@ -3,12 +3,22 @@ import { useGetBlogs } from "actions";
 import { useSWRPages } from "swr";
 import CardItem from "components/CardItem";
 import CardListItem from "components/CardListItem";
+import { useEffect } from "react";
 
 export const useGetBlogsPages = ({ blogs, filter }) => {
+  useEffect(() => {
+    window.__pagination__init = true; // adding property to window for initial fetching
+  }, []);
+
   return useSWRPages(
     "index-page",
     ({ offset, withSWR }) => {
       let initialData = !offset && blogs;
+
+      if (typeof window !== "undefined" && window.__pagination__init) {
+        initialData = null;
+      }
+
       const { data: paginatedBlogs } = withSWR(
         useGetBlogs({ offset, filter }, initialData)
       ); // TODO: initialData must also be present.
