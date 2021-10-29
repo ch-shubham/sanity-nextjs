@@ -4,17 +4,20 @@ import { useSWRPages } from "swr";
 import CardItem from "components/CardItem";
 import CardListItem from "components/CardListItem";
 
-export const useGetBlogsPages = ({ blogs: initialData, filter }) => {
+export const useGetBlogsPages = ({ blogs, filter }) => {
   return useSWRPages(
     "index-page",
     ({ offset, withSWR }) => {
-      const { data: blogs } = withSWR(useGetBlogs({ offset })); // TODO: initialData must also be present.
+      let initialData = !offset && blogs;
+      const { data: paginatedBlogs } = withSWR(
+        useGetBlogs({ offset }, initialData)
+      ); // TODO: initialData must also be present.
 
-      if (!blogs) {
+      if (!paginatedBlogs) {
         return "Loading!!!";
       }
 
-      return blogs.map((blog) =>
+      return paginatedBlogs.map((blog) =>
         filter.view.list ? (
           <Col key={`${blog.slug}-list`} md="9">
             <CardListItem
