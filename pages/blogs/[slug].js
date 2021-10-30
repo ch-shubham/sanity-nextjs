@@ -13,7 +13,7 @@ const BlogDetail = ({ blog }) => {
             title={blog.title}
             subtitle={blog.subtitle}
             author={blog.author}
-            coverImage={urlFor(blog.coverImage).height(600).url()}
+            coverImage={blog.coverImage && urlFor(blog?.coverImage).height(600).url()}
             date={moment(blog.date).format("LLL")}
           />
           <hr />
