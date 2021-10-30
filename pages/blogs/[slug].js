@@ -3,7 +3,7 @@ import PageLayout from "components/PageLayout";
 import { getBlogBySlug, getAllBlogs, urlFor } from "lib/api";
 import BlogHeader from "components/BlogHeader";
 import BlogContent from "components/BlogContent";
-
+import moment from "moment";
 const BlogDetail = ({ blog }) => {
   return (
     <PageLayout className="blog-detail-page">
@@ -14,11 +14,11 @@ const BlogDetail = ({ blog }) => {
             subtitle={blog.subtitle}
             author={blog.author}
             coverImage={urlFor(blog.coverImage).height(600).url()}
-            date={blog.date}
+            date={moment(blog.date).format("LLL")}
           />
           <hr />
           {/* Blog Content Here */}
-          <BlogContent content={blog.content} />
+          {blog.content && <BlogContent content={blog.content} />}
         </Col>
       </Row>
     </PageLayout>
