@@ -6,7 +6,7 @@ import CardListItem from "components/CardListItem";
 import { useEffect } from "react";
 import CardItemBlank from "components/CarItemBlank";
 import CardListItemBlank from "components/CardListItemBlank";
-
+import moment from 'moment'
 export const useGetBlogsPages = ({ blogs, filter }) => {
   useEffect(() => {
     window.__pagination__init = true; // adding property to window for initial fetching
@@ -48,7 +48,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
               author={blog.author}
               title={blog.title}
               subtitle={blog.subtitle}
-              date={blog.date}
+              date={moment(blog.date).format("LLL")}
               slug={blog.slug}
               link={{ href: "/blogs/[slug]", as: `/blogs/${blog.slug}` }}
             />
@@ -59,7 +59,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
               author={blog.author}
               title={blog.title}
               subtitle={blog.subtitle}
-              date={blog.date}
+              date={moment(blog.date).format("LLL")}
               image={blog.coverImage}
               slug={blog.slug}
               link={{ href: "/blogs/[slug]", as: `/blogs/${blog.slug}` }}
