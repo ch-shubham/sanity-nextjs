@@ -5,6 +5,7 @@ import CardItem from "components/CardItem";
 import CardListItem from "components/CardListItem";
 import { useEffect } from "react";
 import CardItemBlank from "components/CarItemBlank";
+import CardListItemBlank from "components/CardListItemBlank";
 
 export const useGetBlogsPages = ({ blogs, filter }) => {
   useEffect(() => {
@@ -27,11 +28,17 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
       if (!paginatedBlogs) {
         return Array(3)
           .fill(0)
-          .map((_, index) => (
-            <Col className="md-3">
-              <CardItemBlank />
-            </Col>
-          ));
+          .map((_, index) =>
+            filter.view.list ? (
+              <Col key={index} md="9">
+                <CardListItemBlank />
+              </Col>
+            ) : (
+              <Col key={index} md="4">
+                <CardItemBlank />
+              </Col>
+            )
+          );
       }
 
       return paginatedBlogs.map((blog) =>
