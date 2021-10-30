@@ -2,8 +2,17 @@ import { Card } from "react-bootstrap";
 import Link from "next/link";
 import { urlFor } from "lib/api";
 
-const CardItem = ({ title, subtitle, image, date, author, slug, link }) => (
-  <Card className={`fj-card`}>
+const CardItem = ({
+  title,
+  subtitle,
+  image,
+  date,
+  author,
+  slug,
+  link,
+  mode = "normal",
+}) => (
+  <Card className={`fj-card ${mode}`}>
     <div className="card-body-wrapper">
       <Card.Header className="d-flex flex-row">
         <img
@@ -14,22 +23,45 @@ const CardItem = ({ title, subtitle, image, date, author, slug, link }) => (
           alt="avatar"
         />
         <div>
-          <Card.Title className="font-weight-bold mb-1">
-            {author?.name /** ?. is called safe operator, if author is undefined the complete expression is undefined instead of throwing error*/ ||
-              "Shubham"}
-          </Card.Title>
-          <Card.Text className="card-date">{date}</Card.Text>
+          {mode === "placeholder" ? (
+            <>
+              <Card.Title className="font-weight-bold mb-1">
+                title...
+              </Card.Title>
+              <Card.Text className="card-date">date...</Card.Text>
+            </>
+          ) : (
+            <>
+              <Card.Title className="font-weight-bold mb-1">
+                {author?.name || "Shubham"}
+              </Card.Title>
+              <Card.Text className="card-date">{date}</Card.Text>
+            </>
+          )}
         </div>
       </Card.Header>
       <div className="view overlay">
-        <Card.Img
-          src={urlFor(image).height(200).crop("center").fit("clip").url()}
-          alt="Card image cap"
-        />
+        {mode === "placeholder" ? (
+          <div className="image-placeholder" />
+        ) : (
+          <Card.Img
+            src={urlFor(image).height(200).crop("center").fit("clip").url()}
+            alt="Card image cap"
+          />
+        )}
       </div>
       <Card.Body>
-        <Card.Title className="card-main-title">{title}</Card.Title>
-        <Card.Text>{subtitle}</Card.Text>
+        {mode === "placeholder" ? (
+          <>
+            <Card.Title className="card-main-title">title...</Card.Title>
+            <Card.Text>subtitle...</Card.Text>
+          </>
+        ) : (
+          <>
+            <Card.Title className="card-main-title">{title}</Card.Title>
+            <Card.Text>{subtitle}</Card.Text>
+          </>
+        )}
       </Card.Body>
     </div>
     {link && (

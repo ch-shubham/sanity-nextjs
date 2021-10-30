@@ -4,6 +4,7 @@ import { useSWRPages } from "swr";
 import CardItem from "components/CardItem";
 import CardListItem from "components/CardListItem";
 import { useEffect } from "react";
+import CardItemBlank from "components/CarItemBlank";
 
 export const useGetBlogsPages = ({ blogs, filter }) => {
   useEffect(() => {
@@ -24,7 +25,13 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
       ); // TODO: initialData must also be present.
 
       if (!paginatedBlogs) {
-        return "Loading!!!";
+        return Array(3)
+          .fill(0)
+          .map((_, index) => (
+            <Col className="md-3">
+              <CardItemBlank />
+            </Col>
+          ));
       }
 
       return paginatedBlogs.map((blog) =>
