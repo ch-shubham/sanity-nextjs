@@ -6,7 +6,7 @@ import CardListItem from "components/CardListItem";
 import { useEffect } from "react";
 import CardItemBlank from "components/CarItemBlank";
 import CardListItemBlank from "components/CardListItemBlank";
-import moment from 'moment'
+import moment from "moment";
 export const useGetBlogsPages = ({ blogs, filter }) => {
   useEffect(() => {
     window.__pagination__init = true; // adding property to window for initial fetching
@@ -34,7 +34,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
                 <CardListItemBlank />
               </Col>
             ) : (
-              <Col key={index} md="4">
+              <Col key={`${index}-item`} md="4">
                 <CardItemBlank />
               </Col>
             )

@@ -13,7 +13,9 @@ const BlogDetail = ({ blog }) => {
             title={blog.title}
             subtitle={blog.subtitle}
             author={blog.author}
-            coverImage={blog.coverImage && urlFor(blog?.coverImage).height(600).url()}
+            coverImage={
+              blog.coverImage && urlFor(blog?.coverImage).height(600).url()
+            }
             date={moment(blog.date).format("LLL")}
           />
           <hr />
@@ -35,6 +37,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
+//TODO: Introduce Fallback
 export async function getStaticPaths() {
   const blogs = await getAllBlogs();
   const paths = blogs?.map((b) => ({ params: { slug: b.slug } }));
