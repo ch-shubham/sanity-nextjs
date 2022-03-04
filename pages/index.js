@@ -5,7 +5,7 @@ import AuthorIntro from "components/AuthorIntro.";
 import FilteringMenu from "components/FilteringMenu";
 import { useState } from "react";
 import { useGetBlogsPages } from "actions/pagination";
-import { getAllBlogs } from "lib/api";
+import { getPaginatedBlogs } from "lib/api";
 
 export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
@@ -55,7 +55,7 @@ export default function Home({ blogs }) {
 // function is called during the build (build time)
 // Provides the props to your page and it creates the static pages.
 export async function getStaticProps() {
-  const blogs = await getAllBlogs({ offset: 0, date: "desc" });
+  const blogs = await getPaginatedBlogs({ offset: 0, date: "desc" });
   return {
     // return the prop object which is again a object havng the propNames and the values to it
     props: {
