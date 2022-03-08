@@ -14,6 +14,7 @@ export default async function enablePreview(req, res) {
     return res.status(401).json({ message: "Invalid Slug" });
   }
 
+  // it will set the cookies with the keys: __prerender_bypass and __next_preview_data
   res.setPreviewData({}); // it will set some cookies to the  browser, and then by these cookies nextjs can identify that we want to display our page in preview mode.
   res.writeHead(307, { Location: `/blogs/${blog.slug}` });
   res.end();
