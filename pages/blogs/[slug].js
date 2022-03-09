@@ -42,10 +42,10 @@ const BlogDetail = ({ blog, preview }) => {
 };
 
 // preview comes from res.setPreviewData and previewData comes from the json we send inside the setPreviewData({...})
-// TODO: pass preview to getBlogBySlug and fetch draft blog
+
 export async function getStaticProps({ params, preview = false, previewData }) {
   const { slug } = params;
-  const blog = await getBlogBySlug(slug);
+  const blog = await getBlogBySlug(slug, preview);
   return {
     props: {
       blog,
